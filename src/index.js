@@ -110,6 +110,12 @@ FastImage.preload = sources => {
     FastImageViewNativeModule.preload(sources)
 }
 
+FastImage.isCached = url => {
+    return new Promise(function(resolve, reject) {
+        FastImageViewNativeModule.isCached(url, resolve, reject)
+    })
+}
+
 FastImage.defaultProps = {
     resizeMode: FastImage.resizeMode.cover,
 }
