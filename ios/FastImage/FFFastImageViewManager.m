@@ -2,6 +2,7 @@
 #import "FFFastImageView.h"
 
 #import <SDWebImage/SDWebImagePrefetcher.h>
+#import <SDWebImage/SDWebImageManager.h>
 
 @implementation FFFastImageViewManager
 
@@ -33,5 +34,11 @@ RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
     [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:urls];
 }
 
-@end
+RCT_EXPORT_METHOD(isCached:(nonnull NSString *)urlString resolve:(RCTResponseSenderBlock)resolve reject:(RCTResponseSenderBlock)reject) {
+    NSURL *url = [RCTConvert NSURL:urlString];
+    [[SDWebImageManager sharedManager] cachedImageExistsForURL:url completion:^(BOOL isInCache) {
+        resolve(@[@(isInCache)]);
+    }];
+}
 
+@end
