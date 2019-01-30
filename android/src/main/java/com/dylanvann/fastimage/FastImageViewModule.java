@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -29,6 +30,11 @@ class FastImageViewModule extends ReactContextBaseJavaModule {
     }
 
     private static Drawable TRANSPARENT_DRAWABLE = new ColorDrawable(Color.TRANSPARENT);
+
+    @ReactMethod
+    public void isCached(String url, Callback resolve, Callback reject) {
+        resolve.invoke(false);
+    }
 
     @ReactMethod
     public void preload(final ReadableArray sources) {
